@@ -1,0 +1,85 @@
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5em;
+    text-align: center;
+}
+nav {
+    background-color: #34495e;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1em;
+    gap: 1em;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.6em 1em;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+nav a:hover, nav a.active {
+    background-color: #1abc9c;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+section {
+    max-width: 800px;
+    margin: 2em auto;
+    background: white;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+article {
+    margin-bottom: 2em;
+}
+article h3 {
+    margin-bottom: 0.5em;
+    color: #2c3e50;
+}
+article p {
+    line-height: 1.6;
+    color: #333;
+}
+footer {
+    background: #ecf0f1;
+    text-align: center;
+    padding: 1em;
+    margin-top: 2em;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2em;
+    margin-top: 2em;
+}
+
+.schueler-karte {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1.5em;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.schueler-karte:hover {
+    transform: scale(1.02);
+}
+
+.schueler-karte img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1em;
+}
+

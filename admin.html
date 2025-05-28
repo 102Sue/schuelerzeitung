@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Bereich</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(90deg, #6366f1, #60a5fa);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      padding: 20px;
+      animation: fadeIn 1s ease;
+    }
+    .hidden { display: none; }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+    button {
+      background: #6366f1;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #4f46e5;
+    }
+    .tabs button {
+      background: #e5e7eb;
+      color: #374151;
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: none;
+      transition: background 0.3s ease;
+    }
+    .tabs button.active {
+      background: #6366f1;
+      color: white;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Admin Bereich</h1>
+  <p>Inhalte deiner Website verwalten</p>
+</header>
+
+<div class="container">
+
+  <div id="loginBox">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Benutzername" />
+    <input type="password" id="password" placeholder="Passwort" />
+    <button onclick="login()">Einloggen</button>
+    <p id="loginError" style="color:red;"></p>
+  </div>
+
+  <div id="editorBox" class="hidden">
+    <h2>Seiteninhalt bearbeiten</h2>
+    <div class="tabs">
+      <button onclick="showTab('nachrichten')" class="active">Nachrichten</button>
+      <button onclick="showTab('schueler')">Schüler</button>
+      <button onclick="showTab('interviews')">Interviews</button>
+      <button onclick="showTab('kunst')">Kunst</button>
+    </div>
+
+    <div id="nachrichten" class="tabContent">
+      <h3>Nachrichten</h3>
+      <textarea id="inhalt_nachrichten"></textarea>
+    </div>
+    <div id="schueler" class="tabContent hidden">
+      <h3>Schüler</h3>
+      <textarea id="inhalt_schueler"></textarea>
+    </div>
+    <div id="interviews" class="tabContent hidden">
+      <h3>Interviews</h3>
+      <textarea id="inhalt_interviews"></textarea>
+    </div>
+    <div id="kunst" class="tabContent hidden">
+      <h3>Kunst & Kultur</h3>
+      <textarea id="inhalt_kunst"></textarea>
+    </div>
+
+    <button onclick="saveContent()">Speichern</button>
+    <p id="saveMessage" style="color:green;"></p>
+  </div>
+</div>
+
+<script>
+  const credentials = { username: "admin", password: "passwort123" };
+
+  function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    if (user === credentials.username && pass === credentials.password) {
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("editorBox").classList.remove("hidden");
+      loadContent();
+    } else {
+      document.getElementById("loginError").textContent = "Falsche Zugangsdaten.";
+    }
+  }
+
+  function showTab(tab) {
+    document.querySelectorAll(".tabContent").forEach(el => el.classList.add("hidden"));
+    document.getElementById(tab).classList.remove("hidden");
+    document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+    event.target.classList.add("active");
+  }
+
+  function saveContent() {
+    localStorage.setItem("seite_nachrichten", document.getElementById("inhalt_nachrichten").value);
+    localStorage.setItem("seite_schueler", document.getElementById("inhalt_schueler").value);
+    localStorage.setItem("seite_interviews", document.getElementById("inhalt_interviews").value);
+    localStorage.setItem("seite_kunst", document.getElementById("inhalt_kunst").value);
+    document.getElementById("saveMessage").textContent = "Gespeichert!";
+  }
+
+  function loadContent() {
+    document.getElementById("inhalt_nachrichten").value = localStorage.getItem("seite_nachrichten") || "";
+    document.getElementById("inhalt_schueler").value = localStorage.getItem("seite_schueler") || "";
+    document.getElementById("inhalt_interviews").value = localStorage.getItem("seite_interviews") || "";
+    document.getElementById("inhalt_kunst").value = localStorage.getItem("seite_kunst") || "";
+  }
+</script>
+
+</body>
+</html>
